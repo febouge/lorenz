@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+valid:
+  direction: SO
+  velocity: 10
+  period: 06-12
+
+not_valid:
+  direction: 123
+  velocity: asdmaskd
+  period: 
