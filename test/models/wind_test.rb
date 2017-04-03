@@ -2,27 +2,49 @@ require 'test_helper'
 
 class WindTest < ActiveSupport::TestCase
   setup do
-    @valid_wind = create_valid_wind
-    @not_valid_wind = create_not_valid_wind
+    @valid_wind = winds(:valid)
   end
 
   test 'valid_wind is valid' do
-    assert @valid_wind.valid?
+    @valid_wind.valid?
+    refute(@valid_wind.errors.include?(:period))
+    refute(@valid_wind.errors.include?(:velocity))
+    refute(@valid_wind.errors.include?(:direction))
   end
 
-  test 'valid_wind can be persisted' do
-    assert @valid_wind.save
-    assert @valid_wind.persisted?
+  test 'does not allow more than two digits for direction' do
+    wind = Wind.new(direction: 'NOVALID')
+    wind.valid?
+    assert_match 'is too long (maximum is 2 characters)',
+                 wind.errors.full_messages_for(:direction)[0]
   end
 
-  test 'does not allow non numerical values for velocity' do
-    wind = Wind.new(velocity: 'foo')
+  test 'allows two digits string for direction' do
+    wind = Wind.new(direction: 'NO')
+    wind.valid?
+    refute(wind.errors.include?(:direction))
+  end
+
+  test 'allows blank string for direction' do
+    wind = Wind.new(direction: '')
+    wind.valid?
+    refute(wind.errors.include?(:direction))
+  end
+
+  test 'does not allow non numbers for velocity' do
+    wind = Wind.new(velocity: 'no valid')
     wind.valid?
     assert_match 'is not a number', wind.errors.full_messages_for(:velocity)[0]
   end
 
   test 'allows numerical values for velocity' do
     wind = Wind.new(velocity: 3)
+    wind.valid?
+    refute(wind.errors.include?(:velocity))
+  end
+
+  test 'allows blank values for velocity' do
+    wind = Wind.new(velocity: '')
     wind.valid?
     refute(wind.errors.include?(:velocity))
   end
@@ -36,12 +58,5 @@ class WindTest < ActiveSupport::TestCase
     valid_wind.period = '00-06'
     valid_wind.forecast_id = forecasts(:one).id
     valid_wind
-  end
-
-  def create_not_valid_wind
-    not_valid_wind = Wind.new
-    not_valid_wind.velocity = 'testNumber'
-    not_valid_wind.direction = '123'
-    not_valid_wind
   end
 end
