@@ -1,30 +1,35 @@
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
-# incrementally modify your database, and then regenerate this schema definition
+# incrementally modify your database, and then regenerate this schema definition.
 #
 # Note that this schema.rb definition is the authoritative source for your
 # database schema. If you need to create the application database on another
 # system, you should be using db:schema:load, not running all the migrations
-# from scratch. The latter is a flawed and unsustainable approach (the more
-# migrations you'll amass, the slower it'll run and the greater likelihood
-# for issues).
-# It's strongly recommended that you check this file into your version
-# control system.
-ActiveRecord::Schema.define(version: 20_170_327_212_118) do
-  create_table 'forecasts', force: :cascade do |t|
-    t.date     'forecast_day'
-    t.date     'forecast_obtained'
-    t.datetime 'created_at',        null: false
-    t.datetime 'updated_at',        null: false
+# from scratch. The latter is a flawed and unsustainable approach (the more migrations
+# you'll amass, the slower it'll run and the greater likelihood for issues).
+#
+# It's strongly recommended that you check this file into your version control system.
+
+ActiveRecord::Schema.define(version: 20170412171800) do
+
+  create_table "hourly_forecasts", force: :cascade do |t|
+    t.date     "day"
+    t.string   "sunrise"
+    t.string   "sunset"
+    t.integer  "period"
+    t.string   "sky_state"
+    t.integer  "rain"
+    t.integer  "rain_probability"
+    t.integer  "storm_probability"
+    t.integer  "snow"
+    t.integer  "snow_probability"
+    t.integer  "thermal_sensation"
+    t.integer  "relative_humidity"
+    t.integer  "wind_velocity"
+    t.string   "wind_direction"
+    t.integer  "temperature"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
   end
 
-  create_table 'winds', force: :cascade do |t|
-    t.string   'direction'
-    t.integer  'velocity'
-    t.string   'period'
-    t.datetime 'created_at',  null: false
-    t.datetime 'updated_at',  null: false
-    t.integer  'forecast_id'
-    t.index ['forecast_id'], name: 'index_winds_on_forecast_id'
-  end
 end

@@ -1,3 +1,3 @@
 Rails.application.routes.draw do
-  resources :forecasts
+  resources :hourly_forecasts
 end

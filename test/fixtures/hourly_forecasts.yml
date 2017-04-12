@@ -1,0 +1,35 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  day: 2017-04-12
+  sunrise: 07:34
+  sunset: 19:59
+  period: 1
+  sky_state: Clear
+  rain: 1
+  rain_probability: 1
+  storm_probability: 1
+  snow: 1
+  snow_probability: 1
+  thermal_sensation: 1
+  relative_humidity: 1
+  wind_velocity: 1
+  wind_direction: SO
+  temperature: 1
+
+two:
+  day: 2017-04-12
+  sunrise: 07:32
+  sunset: 19:58
+  period: 1
+  sky_state: Cloudy
+  rain: 1
+  rain_probability: 1
+  storm_probability: 1
+  snow: 1
+  snow_probability: 1
+  thermal_sensation: 1
+  relative_humidity: 1
+  wind_velocity: 0
+  wind_direction: C
+  temperature: 1
