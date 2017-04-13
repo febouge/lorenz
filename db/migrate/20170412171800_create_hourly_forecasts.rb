@@ -16,7 +16,6 @@ class CreateHourlyForecasts < ActiveRecord::Migration[5.0]
       t.integer :wind_velocity
       t.string :wind_direction
       t.integer :temperature
-
       t.timestamps
     end
   end
