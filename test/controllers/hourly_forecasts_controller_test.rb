@@ -17,7 +17,7 @@ class HourlyForecastsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should create hourly_forecast' do
-    assert_difference('HourlyForecast.count', 1) do
+    assert_difference('HourlyForecast.count') do
       post hourly_forecasts_url, params: { hourly_forecast: @second_forecast },
                                  as: :json
     end
@@ -38,6 +38,11 @@ class HourlyForecastsControllerTest < ActionDispatch::IntegrationTest
   test 'show hourly_forecast returns json' do
     get hourly_forecast_url(@hourly_forecast)
     assert_response_is_json
+  end
+
+  test 'invalid id in get forecast should return empty json' do
+    get hourly_forecast_url(id: -10)
+    assert @response.body.empty?
   end
 
   test 'should update hourly_forecast' do
