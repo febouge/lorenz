@@ -16,4 +16,12 @@ class HourlyForecast < ApplicationRecord
   validates :wind_direction, presence: true, numericality: false,
                              length: { minimum: 1, maximum: 2 }
   validates :temperature, presence: true, numericality: true
+
+  def fix_empty_data
+    possible_empty_properties = %i(rain storm snow)
+    probability = '_probability'
+    possible_empty_properties.each do |name|
+      self[name.to_s + probability] = self[name.to_s + probability].presence || 0
+    end
+  end
 end
