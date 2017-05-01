@@ -6,24 +6,18 @@ class AemetUrlBuilder
               daily_json: 'https://opendata.aemet.es/opendata/api/prediccion/especifica/municipio/diaria/CODE?api_key=APIKEY' }.freeze
 
   def hourly_xml_url
-    url_for :hourly_xml
+    URL_MAP[:hourly_xml]
   end
 
   def daily_xml_url
-    url_for :daily_xml
+    URL_MAP[:daily_xml]
   end
 
   def hourly_json_url
-    url_for :hourly_json
+    URL_MAP[:hourly_json]
   end
 
   def daily_json_url
-    url_for :daily_json
-  end
-
-  private
-
-  def url_for(url_type)
-    URL_MAP[url_type]
+    URL_MAP[:daily_json]
   end
 end
