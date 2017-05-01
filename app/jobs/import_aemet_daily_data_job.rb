@@ -45,7 +45,7 @@ class ImportAemetDailyDataJob < ApplicationJob
 
   def extract_today_forecast(raw_data)
     daily_forecasts = raw_data[0]['prediccion']['dia']
-    @today_forecast = daily_forecasts.select { |element| element['fecha'] == Date.today.to_s }[0]
+    @today_forecast = daily_forecasts.select { |element| element['fecha'] == Time.zone.now.to_date.to_s }[0]
   end
 
   def create_hourly_forecasts
