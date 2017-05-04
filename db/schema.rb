@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 20170501185534) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "hourly_forecasts", force: :cascade do |t|
     t.date     "day"
     t.string   "sunrise"
