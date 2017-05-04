@@ -10,7 +10,9 @@ services:
  - postgres:latest
 
 variables:
-  POSTGRES_DB: lorenz_test
+  DATABASE_HOST: 'postgresql://postgres:$DATABASE_PASSWORD@postgres:5432/lorenz_test'
+  API_KEY: '$API_KEY'
+  COUNTRY_CODE: '$COUNTRY_CODE'
 
 # Cache gems in between builds
 cache:
@@ -36,10 +38,6 @@ rubocop:
 #  - rspec spec
 
 test:
- variables:
-   DATABASE_HOST: "postgresql://postgres:$DATABASE_PASSWORD@postgres:5432/lorenz_test"
-   API_KEY: '$API_KEY'
-   COUNTRY_CODE: '$COUNTRY_CODE'
   script:
   - bundle exec rake db:create RAILS_ENV=test
   - bundle exec rake db:migrate
