@@ -18,13 +18,13 @@ default: &default
   adapter: postgresql
   encoding: unicode
   pool: 5
-  url: <%= ENV['DATABASE_HOST'] %>
-  username: postgres
-  password: <%= ENV['DATABASE_PASSWORD'] %>
 
 development:
   <<: *default
   database: lorenz_development
+  url: <%= ENV['DATABASE_HOST'] %>
+  username: postgres
+  password: <%= ENV['DATABASE_PASSWORD'] %>
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
@@ -59,6 +59,9 @@ development:
 test:
   <<: *default
   database: lorenz_test
+  url: <%= ENV['DATABASE_HOST'] %>
+  username: postgres
+  password: <%= ENV['DATABASE_PASSWORD'] %>
 
 # On Heroku and other platform providers, you may have a full connection URL
 # available as an environment variable. For example:
@@ -73,4 +76,4 @@ test:
 production:
   <<: *default
   database: lorenz_production
-  url: <%= ENV['PROD_DATABASE_HOST'] %>
+  url: <%= ENV['DATABASE_URL'] %>
