@@ -41,7 +41,19 @@ class HourlyForecastsController < ApplicationController
     @hourly_forecast.destroy
   end
 
+  def current
+    time_elements = current_time_elements
+    @hourly_forecast = HourlyForecast.where(:period == time_elements[:period])
+                                     .where(:day == time_elements[:date])
+    render json: @hourly_forecast
+  end
+
   private
+
+  def current_time_elements
+    time_elements = Time.zone.now.to_s.split(' ')
+    { date: time_elements[0], period: time_elements[1].split(':')[0].to_i }
+  end
 
   # Use callbacks to share common setup or constraints between actions.
   def set_hourly_forecast
