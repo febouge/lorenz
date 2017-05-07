@@ -43,8 +43,7 @@ class HourlyForecastsController < ApplicationController
 
   def current
     time_elements = current_time_elements
-    @hourly_forecast = HourlyForecast.where(:period == time_elements[:period])
-                                     .where(:day == time_elements[:date])
+    @hourly_forecast = HourlyForecast.where('period = ? AND day = ?', time_elements[:period], time_elements[:date])
     render json: @hourly_forecast
   end
 

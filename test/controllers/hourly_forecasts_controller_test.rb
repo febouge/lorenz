@@ -69,11 +69,6 @@ class HourlyForecastsControllerTest < ActionDispatch::IntegrationTest
     assert @response.body.empty?
   end
 
-  test 'should return the current forecast' do
-    get hourly_forecast_current_url
-    assert @response.body.empty?
-  end
-
   private
 
   def assert_response_is_json
