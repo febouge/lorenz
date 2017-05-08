@@ -78,7 +78,7 @@ class ImportAemetDailyDataJob < ApplicationJob
       forecast[name_in_model] = if 'estadoCielo'.eql? name_in_json
                                   data['descripcion']
                                 else
-                                  data['value']
+                                  data['value'].to_i
                                 end
     end
   end
