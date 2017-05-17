@@ -18,7 +18,6 @@ class HourlyForecastsController < ApplicationController
   # POST /hourly_forecasts
   def create
     @hourly_forecast = HourlyForecast.new(hourly_forecast_params)
-
     if @hourly_forecast.save
       render json: @hourly_forecast, status: :created,
              location: @hourly_forecast
@@ -42,8 +41,11 @@ class HourlyForecastsController < ApplicationController
   end
 
   def current
-    time_elements = current_time_elements
-    @hourly_forecast = HourlyForecast.where('period = ? AND day = ?', time_elements[:period], time_elements[:date])
+    @hourly_forecast = find_current_forecast
+    if @hourly_forecast.empty?
+      import_hourly_data
+      @hourly_forecast = find_current_forecast
+    end
     render json: @hourly_forecast
   end
 
@@ -52,6 +54,15 @@ class HourlyForecastsController < ApplicationController
   def current_time_elements
     time_elements = Time.zone.now.to_s.split(' ')
     { date: time_elements[0], period: time_elements[1].split(':')[0].to_i }
+  end
+
+  def find_current_forecast
+    time_elements = current_time_elements
+    HourlyForecast.where('period = ? AND day = ?', time_elements[:period], time_elements[:date])
+  end
+
+  def import_hourly_data
+    ImportAemetDailyDataJob.perform_now
   end
 
   # Use callbacks to share common setup or constraints between actions.
