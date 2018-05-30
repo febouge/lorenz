@@ -25,3 +25,6 @@
 
 # Ignore coreavege folder
 /coverage
+
+# Ignore vendor folder
+vendor
